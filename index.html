@@ -5,317 +5,302 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <style>@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap");
+  <style>html, body {
+  margin: 0;
+  height: 100%;
+	overflow: hidden;
 
-* {
-	margin: 0;
-	padding: 0;
 	box-sizing: border-box;
+	background-color: #00011F;
 }
-
-body {
-	font-family: "Rubik", sans-serif;
-	min-height: 100vh;
-	display: grid;
-	place-items: center;
-
-	--black: #010101;
-	--white: #ebebeb;
-	--dark-grey: #2e2e2e;
-	--grey: #5b5b5b;
-
-	background-color: var(--black);
+#container{
+	
+	filter: blur(0px);
+	transition: 1s;
 }
-
-ul {
-	list-style: none;
-}
-
-a {
-	text-decoration: none;
-	color: inherit;
-}
-
-.container {
-	width: 960px;
-	height: 70vh;
-	position: relative;
-	color: var(--white);
-	overflow: hidden;
-}
-
-header {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	padding: 3em;
-	pointer-events: all;
-}
-header .navbar {
-	display: grid;
-	grid-template-columns: 30px 30px 1fr;
-	justify-items: flex-start;
-}
-header .navbar li {
-	font-size: 0.9em;
-}
-header .navbar li:last-child {
-	justify-self: flex-end;
-}
-
-section.page-2 {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: var(--white);
-	z-index: 1;
-	mix-blend-mode: difference;
-	pointer-events: none;
-}
-
-section.page-1 {
-	padding: 3em;
-	position: relative;
-	height: 100%;
-	z-index: -1;
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-}
-
-.logo {
-	position: absolute;
-	top: 40%;
-	left: 0;
-	transform: translateY(-60%);
-}
-.logo h1 {
-	font-size: 8em;
-	font-weight: 400;
-}
-
-.desc {
-	width: 40%;
-	align-self: flex-end;
-	margin-left: 30%;
-	margin-bottom: 30%;
-}
-.desc p {
-	font-size: 0.9em;
-	line-height: 1.5em;
-}
-
-.photo {
-	width: 400px;
-	height: 500px;
-	justify-self: center;
-	align-self: center;
-	position: relative;
-	object-fit: cover;
-	overflow: hidden;
-	z-index: -1;
-}
-.photo::before {
-	content: "";
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-	background: radial-gradient(ellipse at center, transparent, var(--black) 90%);
-}
-.photo img {
-	width: 100%;
-}
-
-.page-2 {
-	padding: 3em;
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	color: var(--dark-grey);
-	align-items: flex-end;
-}
-.page-2 small {
-	font-size: 0.8em;
-	color: var(--grey);
-}
-
-.reel-text {
-	width: 30%;
-}
-.reel-text p {
-	margin-bottom: 30px;
-}
-.subtitle {
-	font-size: 2em;
-	line-height: 1em;
-}
-.subtitle:last-of-type {
-	font-weight: 600;
-}
-
-.foreword {
-	width: 40%;
-	justify-self: flex-end;
-}
-.foreword p {
-	text-align: right;
-}
-.foreword section {
-	text-align: right;
-	margin-bottom: 30px;
-}
-.foreword section svg {
-	width: 14px;
-	height: 14px;
-	fill: none;
-	stroke: var(--dark-grey);
-	stroke-width: 2;
-	margin-right: 10px;
-}
-
-footer {
+.menu{
+	margin: 0;
 	position: fixed;
-	left: 50%;
-	bottom: 5%;
-	transform: translateX(-50%);
-}
-footer p {
-	color: var(--grey);
-}
-footer a {
-	color: #ea4c89;
-}
-
-.active {
-	padding-top: 2px;
-	border-bottom: 2px solid var(--white);
+	left: 0;
+	top: 0;
+	background-color: rgba(#00011F,0.7);
+	width: 100%;
+	height: 100%;
 	pointer-events: none;
-}
-</style>
-  <script>new Vue({
-	el: "#app",
-
-	data() {
-		return {
-			active: false,
-			isActive: 0,
-			tl: null
-		};
-	},
-
-	watch: {
-		active: function (ov, nv) {
-			if (ov) {
-				gsap.to(".page-2", 1.5, {
-					xPercent: 0,
-					ease: "circ.inOut",
-					onStart: () => {
-						setTimeout(this.reelTextAni, 1200);
-					}
-				});
-				gsap.to(".logo", 1.5, { xPercent: 140, ease: "circ.inOut" });
-				gsap.to(".desc", 1.5, { x: -400, opacity: 0, ease: "circ.inOut" });
-				gsap.to(".photo", 1.5, { x: -400, opacity: 0, ease: "circ.inOut" });
-			} else {
-				this.reelTextReverseAni();
-			}
-		}
-	},
-
-	methods: {
-		reelTextAni: function () {
-			this.tl = gsap.timeline();
-
-			this.tl.to(["#rt1", "#rt2", "#rt3", "#rt4", ".foreword"], 0.3, {
-				opacity: 1,
-				y: 0,
-				stagger: 0.1
-			});
-		},
-		reelTextReverseAni: function () {
-			this.tl = gsap.timeline();
-
-			this.tl
-				.to([".foreword", "#rt4", "#rt3", "#rt2", "#rt1"], 0.3, {
-					opacity: 0,
-					y: 20,
-					stagger: 0.1
-				})
-				.to(
-					".page-2",
-					1.5,
-					{
-						xPercent: 100,
-						ease: "circ.inOut"
-					},
-					"-=0.5"
-				)
-				.to(".logo", 1.5, { xPercent: 40, ease: "circ.inOut" }, "-=1.4")
-				.to(".desc", 1.5, { x: 0, opacity: 1, ease: "circ.inOut" }, "-=1.4")
-				.to(".photo", 1.5, { x: 0, opacity: 1, ease: "circ.inOut" }, "-=1.4");
-		}
-	},
-
-	mounted() {
-		gsap.set(".page-2", { xPercent: 100 });
-		gsap.set(".logo", { xPercent: 40 });
-		gsap.set(".photo", { x: 0 });
-		gsap.set(["#rt1", "#rt2", "#rt3", "#rt4", ".foreword"], {
-			opacity: 0,
-			y: 20
-		});
+	opacity: 0;
+	transition: 0.5s;
+	z-index: 500;
+	padding: 50px 100px;
+	color: white;
+	list-style: none;
+	font-weight: 800;
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	flex-direction: column;
+	transition-delay: 0.2s;
+	&.active{
+		pointer-events: initial;
+		opacity: 1;
+		background-color: rgba(#00011F,0.6);
 	}
-});
-</script>
-</head>
-<body><div class="container" id="app">
-	<header>
-		<ul class="navbar">
-			<li><a @click.prevent="active = false,isActive = 0" :class="[{ active: !isActive }, '']" href="">Bio</a></li>
-			<li><a @click.prevent="active = true, isActive = 1" :class="[{ active: isActive }, '']" href="">Work</a></li>
-			<li>Contact</li>
-		</ul>
-	</header>
-	<section class="page-1">
-		<div class="logo">
-			<h1>clypso</h1>
-		</div>
-		<div class="desc">
-			<p>Highly acclaimed music video director from London, UK and the co-founder of Cosmatin Media Group</p>
-		</div>
-		<div class="photo">
-			<img src="https://images.unsplash.com/photo-1576800774081-68c65e87becc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2154&q=80" alt="unsplash photo">
-		</div>
-	</section>
-	<section class="page-2">
-		<div class="reel-text">
-			<p id="rt1"><small>clypso@gmail.com</small></p>
-			<div id="rt2" class="subtitle">Directors</div>
-			<div id="rt3" class="subtitle">Showreel</div>
-			<div id="rt4" class="subtitle">2020</div>
-		</div>
-		<div class="foreword">
-			<section>
-				<svg viewBox="0 0 24 24">
-					<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-				</svg>
-				<svg viewBox="0 0 24 24">
-					<rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-					<path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37zM17.5 6.5h.01" />
-				</svg>
-				<svg viewBox="0 0 24 24">
-					<path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
-				</svg>
-			</section>
-			<p><small>Highly acclaimed music video director from London, UK and the co-founder of Cosmatin Media Group</small></p>
-		</div>
-	</section>
-</div>
+	li{
+		font-size: 60px;
+		cursor: pointer;
+		transition: 0.5s;
+		&:hover{
+			color: #FF3F5E
+		}
+		
+	}
+	
+}
+#container.blur{
+	
+	filter: blur(30px);
+}
+canvas{
+	mix-blend-mode: screen;
+}
+h1{
+	z-index: 100;
+	color: white;
+	font-size: 50px;
+	
+}
+.logo{
+	width: 250px;
+	position: fixed;
+	left: 20px;
+	top: 20px;
+	z-index: 1000;
+	
+}
+.frame{
+/* 	position: fixed; */
+/* 	left: 10px; */
+/* 	top: 10px; */
+/* 	border: solid 2px white; */
+/* 	width: calc(100% - 20px);
+	height: calc(100% - 20px); */
+	
+}
+canvas {
+  display: block;
+}
+.fixed{
+	position: fixed;
+	top: 34%;
+	left: 50px;
+	z-index: 100;
+	color: white;
+}
+h2{
+	font-size: 30px;margin: 0;
+}
+h4{
+	font-weight: 500;
+	margin: 0;
+}
+.explore{
+	border: solid 1px white;
+	display: inline-block;
+	border-radius: 200px;
+	padding: 8px 20px;
+	border-width: 3px;
+	margin-top: 20px;
+	cursor: pointer;
+	transition: 0.5s;
+	&:hover{
+		background-color: #fff;
+		color: black
+		
+	}
+	
+}</style>
+  <script>//Create var for the contenair, the webGL 3D scene, uniforms to bind into shader and timer
+var container;
+var camera, scene, renderer;
+var uniforms;
+var startTime;
 
-<footer>
-	<p><small>Based on this <a href="https://dribbble.com/shots/13966270-Ali-Ali-Transition" target="blank">Dribbble</a>. NOT RESPONSIVE</small></p>
-</footer></body>
+init(); //init scene
+animate(); //updateScene
+
+function init() {
+	//get contenaire
+	container = document.getElementById('container');
+	
+	//Create THREE.JS scene and timer
+	startTime = Date.now();
+	camera = new THREE.Camera();
+	camera.position.z = 1;
+	scene = new THREE.Scene();
+	
+	//create a simple plance
+	var geometry = new THREE.PlaneBufferGeometry(16, 9);
+	
+	//create uniform table which provide all our GLSL binding
+	uniforms = {
+		time: { type: "f", value: 1.0 },
+		resolution: { type: "v2", value: new THREE.Vector2() },
+		mouse: { type: "v2", value: new THREE.Vector2() }
+	};
+	
+	//create THREE.JS material
+	var material = new THREE.ShaderMaterial( {
+	//set shaders and uniforms into material
+		uniforms: uniforms,
+		vertexShader: document.getElementById('vertexShader').textContent,
+		fragmentShader: document.getElementById('fragmentShader').textContent
+	} );
+
+	//create mesh, add it to the scene
+	var mesh = new THREE.Mesh(geometry, material);
+	scene.add(mesh);
+	
+	//create renderer and add it to the DOM
+	renderer = new THREE.WebGLRenderer();
+	container.appendChild(renderer.domElement);
+	
+	//check window for resize This will give us the proper resolution values to bind
+	onWindowResize();
+	window.addEventListener('resize', onWindowResize, false);
+}
+
+function onWindowResize(event) {
+	//send new size value to the shader and resize the window
+	uniforms.resolution.value.x = window.innerWidth;
+	uniforms.resolution.value.y = window.innerHeight;
+	renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+function animate() {
+	requestAnimationFrame(animate);
+	render();
+}
+
+function render() {
+	var currentTime = Date.now();
+	var elaspedSeconds =  (currentTime - startTime) / 1000.0;
+	var maxTime = 4.0;
+	var normTime = (elaspedSeconds % maxTime) / maxTime;
+	uniforms.time.value =elaspedSeconds;
+
+	renderer.render(scene, camera);
+}
+
+window.addEventListener("mousemove",(evt)=>{
+	// console.log(evt)
+	
+	uniforms.mouse.value.x =  evt.x/uniforms.resolution.value.x;
+	uniforms.mouse.value.y = 1-evt.y/uniforms.resolution.value.y;
+})
+
+window.addEventListener("click", (evt)=>{
+	document.getElementById("container").classList.toggle("blur")
+	document.querySelector(".menu").classList.toggle("active")
+})</script>
+</head>
+<body>
+	  <img class="logo" src="https://outernets.co/wp-content/uploads/2019/03/logo-H.png"/>
+	  <ul class="menu">
+		  <li>About</li>
+		  <li>Service</li>
+		  <li>Press</li>
+		  <li>Industry Insight</li>
+		  <li>Contact</li>
+</ul>
+	  <div id="container">
+	  <div class="fixed">
+		  
+	  <h1>Where Digital Gets Physical</h1>	
+		  <p>Smarter digital displays with AI technology<br> 
+which understand and proactively engage their viewers.</p>
+		  <div class="explore">Explore the Future</div>
+<!-- 	 <h4>GLSL Experiment #1</h4> -->
+<!-- 	 <h2>20191126 - Amoeba</h2> -->
+		  </div>
+		  </div>
+    <!-- simple vertex shader -->
+    <script id="vertexShader" type="x-shader/x-vertex">
+      void main() {
+        gl_Position = vec4(position*3.0, 1.0);
+      }
+    </script>
+    
+    <!-- simple fragment shader -->
+    <script id="fragmentShader" type="x-shader/x-fragment">
+		// Author:
+// Title:
+
+#ifdef GL_ES
+precision mediump float;
+#endif
+#define PI 3.14159265358
+
+uniform vec2 resolution;
+uniform vec2 mouse;
+uniform float time;
+
+float random (vec2 st) {
+    return fract(sin(time/1000.+dot(st.xy,
+                         vec2(12.9898,78.233)))*
+        43758.5453123);
+}
+		
+vec2 rotate(vec2 v, float a) {
+	float s = sin(a);
+	float c = cos(a);
+	mat2 m = mat2(c, -s, s, c);
+	return m * v;
+}
+float rect(vec2 pos, vec2 st){
+    float w = 30.,h = 30.;
+    float xx = smoothstep(pos.x-w/2.,pos.x-w/2.+1.,st.x) - smoothstep(pos.x+w/2.,pos.x+w/2.+1.,st.x);
+    float yy = smoothstep(pos.y-h/2.,pos.y-h/2.+1.,st.y) - smoothstep(pos.y+h/2.,pos.y+h/2.+1.,st.y) ;
+    return xx*yy;
+}
+float drawBall(vec2 ballPos, vec2 st,float rr, vec3 color){
+    float angle = atan(st.y-ballPos.y,st.x-ballPos.x);
+    float r =20.+cos( 10.*angle/ 2.*PI + time)*5.+ rr * (0.1 + sin(cos(time/10.)+time) ) 
+        		+ 0.5*cos(time/0.3+(0.1+0.5*sin(time/3.))* st.y/(5.+1.*cos(angle+time/5.)) + atan(st.x,st.y))*100.;
+    float d = sqrt(dot((st-ballPos),(st-ballPos)));
+    float clr = smoothstep(r,r+0.5,d)- smoothstep(r,r+50.,d);
+    return clr*(2.+sin(time));
+}
+		
+vec3 cir(vec2 st, vec2 cirPos, float expand,float rr){
+	float ll = sqrt(dot(cirPos - st,cirPos - st));
+	
+	float r = sin( cos(time/(1.+sin(st.y*st.x/5.)/1.))*2. + st.x)*0.02+rr;
+	float kk = smoothstep(r+expand,r,ll);
+	vec3 result = kk * vec3(0.6*random(st)) +
+				  kk;
+	return result;
+}
+
+void main() {
+    vec2 st = gl_FragCoord.xy/ min(resolution.x,resolution.y);
+	// vec2 st = rotate( gl_FragCoord.xy -resolution.xy/2. ,time/100.) + resolution.xy/2.;
+    // st.x *= resolution.x/resolution.y;
+	vec2 pos1 = vec2(1.15,0.9);
+	vec2 pos2 = vec2(1.5,0.5);
+	vec2 pos3 = vec2(0.2,0.1);
+	
+	vec3 red = vec3(1.0,63./255.,94./255.);
+	vec3 blue = vec3(45./255.,50./255.,1.0);
+	vec3 purple = vec3(0.5,0.2,0.5);
+	
+	vec2 pan = mouse - 0.5;
+	
+	vec3 result =  cir(st,pos1-vec2(0.1,0.0),0.01,0.3) - cir(st,pos1 + pan*0.05,0.2,0.2) + (1.-cir(st,pos1-vec2(0.1,0.0),0.01,0.3))*cir(st,pos1 + pan*0.05,0.25,0.2);
+	
+	vec3 result2 = cir(st,pos2-vec2(0.25,0.0),0.01,0.3) - cir(st,pos2 + pan*0.05,0.5,0.2) + (1.-cir(st,pos2-vec2(0.1,0.0),0.2,0.3))*cir(st,pos2 + pan*0.05,0.25,0.2);
+	vec3 result3 =  cir(st,pos3-vec2(0.,0.0),0.01,0.2) - cir(st,pos3 + pan*0.2,0.2,0.12) + (1.-cir(st,pos3-vec2(0.05,0.0),0.01,0.2))*cir(st,pos3 + pan*0.2,0.5,0.12);
+	
+	
+    gl_FragColor = vec4(vec3(0.,1./255.,31./225.)+red*result+blue*result2+purple*result3,1.0);
+}
+    </script></body>
 </html>
