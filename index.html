@@ -1,209 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <style>html, body {
-  margin: 0;
-  height: 100%;
-	overflow: hidden;
+  <title>CodePen - Test Bubble</title>
+  <link rel="stylesheet" href="./style.css">
 
-	box-sizing: border-box;
-	background-color: #00011F;
-}
-#container{
-	
-	filter: blur(0px);
-	transition: 1s;
-}
-.menu{
-	margin: 0;
-	position: fixed;
-	left: 0;
-	top: 0;
-	background-color: rgba(#00011F,0.7);
-	width: 100%;
-	height: 100%;
-	pointer-events: none;
-	opacity: 0;
-	transition: 0.5s;
-	z-index: 500;
-	padding: 50px 100px;
-	color: white;
-	list-style: none;
-	font-weight: 800;
-	display: flex;
-	justify-content: center;
-	align-items: flex-start;
-	flex-direction: column;
-	transition-delay: 0.2s;
-	&.active{
-		pointer-events: initial;
-		opacity: 1;
-		background-color: rgba(#00011F,0.6);
-	}
-	li{
-		font-size: 60px;
-		cursor: pointer;
-		transition: 0.5s;
-		&:hover{
-			color: #FF3F5E
-		}
-		
-	}
-	
-}
-#container.blur{
-	
-	filter: blur(30px);
-}
-canvas{
-	mix-blend-mode: screen;
-}
-h1{
-	z-index: 100;
-	color: white;
-	font-size: 50px;
-	
-}
-.logo{
-	width: 250px;
-	position: fixed;
-	left: 20px;
-	top: 20px;
-	z-index: 1000;
-	
-}
-.frame{
-/* 	position: fixed; */
-/* 	left: 10px; */
-/* 	top: 10px; */
-/* 	border: solid 2px white; */
-/* 	width: calc(100% - 20px);
-	height: calc(100% - 20px); */
-	
-}
-canvas {
-  display: block;
-}
-.fixed{
-	position: fixed;
-	top: 34%;
-	left: 50px;
-	z-index: 100;
-	color: white;
-}
-h2{
-	font-size: 30px;margin: 0;
-}
-h4{
-	font-weight: 500;
-	margin: 0;
-}
-.explore{
-	border: solid 1px white;
-	display: inline-block;
-	border-radius: 200px;
-	padding: 8px 20px;
-	border-width: 3px;
-	margin-top: 20px;
-	cursor: pointer;
-	transition: 0.5s;
-	&:hover{
-		background-color: #fff;
-		color: black
-		
-	}
-	
-}</style>
-  <script>//Create var for the contenair, the webGL 3D scene, uniforms to bind into shader and timer
-var container;
-var camera, scene, renderer;
-var uniforms;
-var startTime;
-
-init(); //init scene
-animate(); //updateScene
-
-function init() {
-	//get contenaire
-	container = document.getElementById('container');
-	
-	//Create THREE.JS scene and timer
-	startTime = Date.now();
-	camera = new THREE.Camera();
-	camera.position.z = 1;
-	scene = new THREE.Scene();
-	
-	//create a simple plance
-	var geometry = new THREE.PlaneBufferGeometry(16, 9);
-	
-	//create uniform table which provide all our GLSL binding
-	uniforms = {
-		time: { type: "f", value: 1.0 },
-		resolution: { type: "v2", value: new THREE.Vector2() },
-		mouse: { type: "v2", value: new THREE.Vector2() }
-	};
-	
-	//create THREE.JS material
-	var material = new THREE.ShaderMaterial( {
-	//set shaders and uniforms into material
-		uniforms: uniforms,
-		vertexShader: document.getElementById('vertexShader').textContent,
-		fragmentShader: document.getElementById('fragmentShader').textContent
-	} );
-
-	//create mesh, add it to the scene
-	var mesh = new THREE.Mesh(geometry, material);
-	scene.add(mesh);
-	
-	//create renderer and add it to the DOM
-	renderer = new THREE.WebGLRenderer();
-	container.appendChild(renderer.domElement);
-	
-	//check window for resize This will give us the proper resolution values to bind
-	onWindowResize();
-	window.addEventListener('resize', onWindowResize, false);
-}
-
-function onWindowResize(event) {
-	//send new size value to the shader and resize the window
-	uniforms.resolution.value.x = window.innerWidth;
-	uniforms.resolution.value.y = window.innerHeight;
-	renderer.setSize(window.innerWidth, window.innerHeight);
-}
-
-function animate() {
-	requestAnimationFrame(animate);
-	render();
-}
-
-function render() {
-	var currentTime = Date.now();
-	var elaspedSeconds =  (currentTime - startTime) / 1000.0;
-	var maxTime = 4.0;
-	var normTime = (elaspedSeconds % maxTime) / maxTime;
-	uniforms.time.value =elaspedSeconds;
-
-	renderer.render(scene, camera);
-}
-
-window.addEventListener("mousemove",(evt)=>{
-	// console.log(evt)
-	
-	uniforms.mouse.value.x =  evt.x/uniforms.resolution.value.x;
-	uniforms.mouse.value.y = 1-evt.y/uniforms.resolution.value.y;
-})
-
-window.addEventListener("click", (evt)=>{
-	document.getElementById("container").classList.toggle("blur")
-	document.querySelector(".menu").classList.toggle("active")
-})</script>
 </head>
 <body>
-	  <img class="logo" src="https://outernets.co/wp-content/uploads/2019/03/logo-H.png"/>
+<!-- partial:index.partial.html -->
+<img class="logo" src="https://outernets.co/wp-content/uploads/2019/03/logo-H.png"/>
 	  <ul class="menu">
 		  <li>About</li>
 		  <li>Service</li>
@@ -302,5 +107,10 @@ void main() {
 	
     gl_FragColor = vec4(vec3(0.,1./255.,31./225.)+red*result+blue*result2+purple*result3,1.0);
 }
-    </script></body>
+    </script>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js'></script><script  src="./script.js"></script>
+
+</body>
 </html>
