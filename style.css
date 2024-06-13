@@ -62,10 +62,10 @@ h1 {
 }
 
 .logo {
-  width: 250px;
+  width: 150px;
   position: fixed;
-  left: 20px;
-  top: 20px;
+  left: 48px;
+  top: 48px;
   z-index: 1000;
 }
 
