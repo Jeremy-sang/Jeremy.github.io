@@ -451,6 +451,21 @@
             font-size: 16px;
         }
         
+        .export-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 100px;
+            height: 40px;
+            background-color: #3C6EF0;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            line-height: 40px;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -470,67 +485,72 @@
     </div>
 
     <div id="card1" class="content hidden">
-        <button class="card1-button" onclick="toggleCard1()">卡片1开始测试</button>
+        <button class="card1-button" onclick="showCard()">卡片1开始测试</button>
         <div id="card1-content" class="card1">
             <img src="https://gd-hbimg.huaban.com/f89d3a032f35d6fe3aedc73b746fc7fb19145a8c58ee-Eklz4G_fw1200" alt="警报" class="card1-icon">
             <div class="card1-title">请注意！</div>
             <div class="card1-text">唯一码商品提交时数量不允许超过单据明细剩余验收量，请减少唯一码提交数量或者按件采集唯一码。</div>
-            <img src="https://gd-hbimg.huaban.com/acd72e89bae5fe88591bdaf33a54e514fc42a09d2fc6-ODNMYl_fw1200webp" alt="关闭" class="card1-close" onclick="toggleCard1()">
+            <img src="https://gd-hbimg.huaban.com/acd72e89bae5fe88591bdaf33a54e514fc42a09d2fc6-ODNMYl_fw1200webp" alt="关闭" class="card1-close" onclick="hideCard()">
         </div>
     </div>
 
     <div id="card2" class="content hidden">
-        <button class="card2-button" onclick="toggleCard2()">卡片2开始测试</button>
+        <button class="card2-button" onclick="showCard2()">卡片2开始测试</button>
         <div id="card2-content" class="card2">
             <img src="https://gd-hbimg.huaban.com/f89d3a032f35d6fe3aedc73b746fc7fb19145a8c58ee-Eklz4G_fw1200" alt="警报" class="card2-icon">
             <div class="card2-title">请注意！</div>
             <div class="card2-text">唯一码商品提交时数量不允许超过单据明细剩余验收量，请减少唯一码提交数量或者按件采集唯一码。</div>
-            <img src="https://gd-hbimg.huaban.com/acd72e89bae5fe88591bdaf33a54e514fc42a09d2fc6-ODNMYl_fw1200webp" alt="关闭" class="card2-close" onclick="toggleCard2()">
+            <img src="https://gd-hbimg.huaban.com/acd72e89bae5fe88591bdaf33a54e514fc42a09d2fc6-ODNMYl_fw1200webp" alt="关闭" class="card2-close" onclick="hideCard2()">
         </div>
     </div>
 
     <div id="popup1" class="content hidden">
-        <button class="button1" onclick="recordButtonClick1('整单完验')">弹窗1开始测试</button>
+        <button class="button1" onclick="showPopup('overlay1')">弹窗1开始测试</button>
         <div class="overlay1" id="overlay1">
             <div class="popup1">
                 <img src="https://gd-hbimg.huaban.com/e63917572b35b01f61caad0085855ffd2e17788775da-SoGx0n_fw1200webp" alt="Icon">
                 <p>当前业务单未质检完成，禁止操作！</p>
                 <div class="divider1"></div>
-                <button class="close-button1" onclick="recordButtonClick1('我知道了')">我读完了</button>
+                <button class="close-button1" onclick="hidePopup('overlay1')">我读完了</button>
             </div>
         </div>
     </div>
 
     <div id="popup2" class="content hidden">
-        <button class="button2" onclick="recordButtonClick2('整单完验')">弹窗2开始测试</button>
+        <button class="button2" onclick="showPopup('overlay2')">弹窗2开始测试</button>
         <div class="overlay2" id="overlay2">
             <div class="popup2">
                 <img src="https://gd-hbimg.huaban.com/e63917572b35b01f61caad0085855ffd2e17788775da-SoGx0n_fw1200webp" alt="Icon">
                 <p>当前业务单未质检完成，禁止操作！</p>
                 <div class="divider2"></div>
-                <button class="close-button2" onclick="recordButtonClick2('我知道了')">我读完了</button>
+                <button class="close-button2" onclick="hidePopup('overlay2')">我读完了</button>
             </div>
         </div>
     </div>
 
     <div id="popup3" class="content hidden">
-        <button class="button3" onclick="recordButtonClick3('整单完验')">弹窗2开始测试</button>
+        <button class="button3" onclick="showPopup('overlay3')">弹窗3开始测试</button>
         <div class="overlay3" id="overlay3">
             <div class="popup3">
                 <img src="https://gd-hbimg.huaban.com/e63917572b35b01f61caad0085855ffd2e17788775da-SoGx0n_fw1200webp" alt="Icon">
                 <p>当前业务单未质检完成，禁止操作！</p>
                 <div class="divider3"></div>
-                <button class="close-button3" onclick="recordButtonClick3('我知道了')">我读完了</button>
+                <button class="close-button3" onclick="hidePopup('overlay3')">我读完了</button>
             </div>
         </div>
     </div>
 
-    <div id="record" class="content">
-        <div class="home-title">感谢参与本次测试，您的意见对于我们至关重要</div>
-        <div class="home-text">需要您分别点击顶部的4个测试按钮，并按照要求执行测试任务，测试完成后点击【操作记录-导出】将下载内容发送至【京ME“sangweijie3”】。</div>
+    <div id="record" class="content hidden">
+        <div class="home-title">操作记录</div>
+        <div class="home-text">
+            <ul id="record-list"></ul>
+        </div>
+        <button class="export-button" onclick="exportToExcel()">导出</button>
     </div>
 
     <script>
+        let records = [];
+
         function showPage(pageId) {
             const pages = document.querySelectorAll('.content');
             pages.forEach(page => {
@@ -541,50 +561,64 @@
                 }
             });
         }
+    
+        function showCard() {
+           const card = document.getElementById('card1-content');
+           card.style.visibility = 'visible';
+           card.classList.add('show');
+           logAction('卡片1测试开始');
+        }
 
-        function toggleCard1() {
-            const card1 = document.getElementById('card1-content');
-            if (card1.classList.contains('show')) {
-                card1.classList.remove('show');
-            } else {
-                card1.classList.add('show');
-            }
+        function hideCard() {
+            const card = document.getElementById('card1-content');
+            card.classList.remove('show');
+            card.style.visibility = 'hidden';
+            logAction('卡片1测试结束');
         }
-        function toggleCard2() {
-            const card2 = document.getElementById('card2-content');
-            if (card2.classList.contains('show')) {
-                card2.classList.remove('show');
-            } else {
-                card2.classList.add('show');
-            }
+
+        function showCard2() {
+           const card = document.getElementById('card2-content');
+           card.style.visibility = 'visible';
+           card.classList.add('show');
+           logAction('卡片2测试开始');
         }
-        function recordButtonClick1() {
-           const overlay = document.getElementById('overlay1');
-           if (overlay.classList.contains('show')) {
-                overlay.classList.remove('show');
-          } else {
-             overlay.classList.add('show');
-            }
+
+        function hideCard2() {
+            const card = document.getElementById('card2-content');
+            card.classList.remove('show');
+            card.style.visibility = 'hidden';
+            logAction('卡片2测试结束');
         }
-        function recordButtonClick2() {
-           const overlay = document.getElementById('overlay2');
-           if (overlay.classList.contains('show')) {
-                overlay.classList.remove('show');
-          } else {
-             overlay.classList.add('show');
-            }
+
+        function showPopup(overlayId) {
+            document.getElementById(overlayId).style.display = 'flex';
+            logAction(`${overlayId} 弹窗测试开始`);
         }
-        function recordButtonClick3() {
-           const overlay = document.getElementById('overlay3');
-           if (overlay.classList.contains('show')) {
-                overlay.classList.remove('show');
-          } else {
-             overlay.classList.add('show');
-            }
+
+        function hidePopup(overlayId) {
+            document.getElementById(overlayId).style.display = 'none';
+            logAction(`${overlayId} 弹窗测试结束`);
+        }
+
+        function logAction(action) {
+            const time = new Date().toLocaleString();
+            const logEntry = document.createElement('li');
+            logEntry.textContent = `${time} - ${action}`;
+            document.getElementById('record-list').appendChild(logEntry);
+        }
+
+        function exportToExcel() {
+            const wb = XLSX.utils.book_new();
+            const ws = XLSX.utils.aoa_to_sheet([["操作记录"]]);
+            const records = Array.from(document.getElementById('record-list').children).map(li => [li.textContent]);
+            XLSX.utils.sheet_add_aoa(ws, records, {origin: -1});
+            XLSX.utils.book_append_sheet(wb, ws, "记录");
+            XLSX.writeFile(wb, "操作记录.xlsx");
         }
 
         // 默认显示首页
         showPage('home');
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 </body>
 </html>
