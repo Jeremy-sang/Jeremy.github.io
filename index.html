@@ -601,16 +601,22 @@
         }
 
         function logAction(action) {
-            const time = new Date().toLocaleString();
+            const now = new Date();
+            const date = now.toLocaleDateString();
+            const time = now.toLocaleTimeString('zh-CN', { hour12: false }) + '.' + now.getMilliseconds();
             const logEntry = document.createElement('li');
-            logEntry.textContent = `${time} - ${action}`;
+            logEntry.textContent = `${date} ${time} - ${action}`;
             document.getElementById('record-list').appendChild(logEntry);
         }
 
         function exportToExcel() {
             const wb = XLSX.utils.book_new();
-            const ws = XLSX.utils.aoa_to_sheet([["操作记录"]]);
-            const records = Array.from(document.getElementById('record-list').children).map(li => [li.textContent]);
+            const ws = XLSX.utils.aoa_to_sheet([["操作日期", "操作时间", "操作项"]]);
+            const records = Array.from(document.getElementById('record-list').children).map(li => {
+                const [date, time, ...actionParts] = li.textContent.split(' ');
+                const action = actionParts.join(' ');
+                return [date, time, action];
+            });
             XLSX.utils.sheet_add_aoa(ws, records, {origin: -1});
             XLSX.utils.book_append_sheet(wb, ws, "记录");
             XLSX.writeFile(wb, "操作记录.xlsx");
@@ -622,3 +628,4 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 </body>
 </html>
+
