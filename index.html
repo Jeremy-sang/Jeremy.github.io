@@ -27,20 +27,28 @@
             background-color: #3C6EF0;
             display: flex;
             align-items: center;
-            padding-left: 24px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             z-index: 900;
         }
+        /* 修改 .navbar button 样式 */
         .navbar button {
-            margin-right: 16px;
-            width: 84px;
-            height: 32px;
-            background-color: #FFFFFF;
-            color: #333333;
+            width: 122px;
+            height: 80px;
+            background-color: #3C6EF0;
+            color: #FFFFFF;
+            font-size: 16px;
+            line-height: 32px;
             border: none;
-            border-radius: 8px;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
+
+        .navbar button:hover,
+        .navbar button.selected {
+            background-color: #325ECC;
+            color: #FFFFFF;
+        }
+
         .navbar button:last-child {
             margin-right: 0;
         }
@@ -120,7 +128,7 @@
         }
         .card1 {
             position: absolute;
-            top: 80px;
+            top: calc(76px);
             left: 50%;
             width: 420px;
             background-color: #FFFFFF;
@@ -189,7 +197,7 @@
         }
         .card2 {
             position: absolute;
-            top: 102px;
+            top: calc(80px);
             left: 50%;
             width: 510px;
             background-color: #FFFFFF;
@@ -271,7 +279,7 @@
         }
         .popup1 {
             width: 560px;
-            height: 226px;
+            height: 236px;
             background-color: #FFFFFF;
             border-radius: 12px;
             display: flex;
@@ -352,7 +360,7 @@
         }
         .popup2 {
             width: 560px;
-            height: 226px;
+            height: 236px;
             background-color: #FFFFFF;
             border-radius: 12px;
             display: flex;
@@ -499,6 +507,12 @@
             font-size: 14px;
         }
     </style>
+     <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+     <script type="text/javascript">
+        (function(){
+           emailjs.init("lAY_kx0jcaMpyg2OE");
+        })();
+     </script>
 </head>
 <body>
     <div class="navbar">
@@ -522,7 +536,7 @@
         <div id="card1-content" class="card1">
             <img src="https://gd-hbimg.huaban.com/f89d3a032f35d6fe3aedc73b746fc7fb19145a8c58ee-Eklz4G_fw1200" alt="警报" class="card1-icon">
             <div class="card1-title">请注意！</div>
-            <div class="card1-text">唯一码商品提交时数量不允许超过单据明细剩余验收量，请减少唯一码提交数量或者按件采集唯一码。</div>
+            <div class="card1-text">序列号商品验收时，请提交序列号信息！</div>
             <img src="https://gd-hbimg.huaban.com/acd72e89bae5fe88591bdaf33a54e514fc42a09d2fc6-ODNMYl_fw1200webp" alt="关闭" class="card1-close" onclick="hideCard()">
         </div>
     </div>
@@ -532,7 +546,7 @@
         <div id="card2-content" class="card2">
             <img src="https://gd-hbimg.huaban.com/f89d3a032f35d6fe3aedc73b746fc7fb19145a8c58ee-Eklz4G_fw1200" alt="警报" class="card2-icon">
             <div class="card2-title">请注意！</div>
-            <div class="card2-text">唯一码商品提交时数量不允许超过单据明细剩余验收量，请减少唯一码提交数量或者按件采集唯一码。</div>
+            <div class="card2-text">序列号商品验收时，请提交序列号信息！</div>
             <img src="https://gd-hbimg.huaban.com/acd72e89bae5fe88591bdaf33a54e514fc42a09d2fc6-ODNMYl_fw1200webp" alt="关闭" class="card2-close" onclick="hideCard2()">
         </div>
     </div>
@@ -542,7 +556,7 @@
         <div class="overlay1" id="overlay1">
             <div class="popup1">
                 <img src="https://gd-hbimg.huaban.com/e63917572b35b01f61caad0085855ffd2e17788775da-SoGx0n_fw1200webp" alt="Icon">
-                <p>当前业务单未质检完成，禁止操作！</p>
+                <p>此单要求只打一个包裹明细，所以只能装在一个箱子中，不允许中途满箱！【友情提示!!!】如果您操作缺量出库，请别忘了回来补满箱！</p>
                 <div class="divider1"></div>
                 <button class="close-button1" onclick="hidePopup('overlay1')">我读完了</button>
             </div>
@@ -554,7 +568,7 @@
         <div class="overlay2" id="overlay2">
             <div class="popup2">
                 <img src="https://gd-hbimg.huaban.com/e63917572b35b01f61caad0085855ffd2e17788775da-SoGx0n_fw1200webp" alt="Icon">
-                <p>当前业务单未质检完成，禁止操作！</p>
+                <p>此单要求只打一个包裹明细，所以只能装在一个箱子中，不允许中途满箱！【友情提示!!!】如果您操作缺量出库，请别忘了回来补满箱！</p>
                 <div class="divider2"></div>
                 <button class="close-button2" onclick="hidePopup('overlay2')">我读完了</button>
             </div>
@@ -566,7 +580,7 @@
         <div class="overlay3" id="overlay3">
             <div class="popup3">
                 <img src="https://gd-hbimg.huaban.com/e63917572b35b01f61caad0085855ffd2e17788775da-SoGx0n_fw1200webp" alt="Icon">
-                <p>当前业务单未质检完成，禁止操作！</p>
+                <p>此单要求只打一个包裹明细，所以只能装在一个箱子中，不允许中途满箱！【友情提示!!!】如果您操作缺量出库，请别忘了回来补满箱！</p>
                 <div class="divider3"></div>
                 <button class="close-button3" onclick="hidePopup('overlay3')">我读完了</button>
             </div>
@@ -579,14 +593,17 @@
             <ul id="record-list"></ul>
         </div>
         <button class="export-button" onclick="exportToExcel()">导出</button>
+        <button class="export-button" style="right: 140px;" onclick="sendEmail()">一键发送</button>
     </div>
 
     <script>
         let records = [];
         let startTime = null;
     
+        // 修改 showPage 函数
         function showPage(pageId) {
             const pages = document.querySelectorAll('.content');
+            const buttons = document.querySelectorAll('.navbar button');
             pages.forEach(page => {
                 if (page.id === pageId) {
                     page.classList.remove('hidden');
@@ -594,7 +611,21 @@
                     page.classList.add('hidden');
                 }
             });
+            buttons.forEach(button => {
+                if (button.getAttribute('onclick').includes(pageId)) {
+                    button.classList.add('selected');
+                } else {
+                    button.classList.remove('selected');
+                }
+            });
         }
+
+        // 默认显示首页并设置按钮选中状态
+        document.addEventListener('DOMContentLoaded', () => {
+            showPage('home');
+            document.querySelector('.navbar button[onclick="showPage(\'home\')"]').classList.add('selected');
+        });
+
     
         function showCard() {
             const card = document.getElementById('card1-content');
@@ -664,6 +695,31 @@
             XLSX.utils.book_append_sheet(wb, ws, "记录");
             XLSX.writeFile(wb, "操作记录.xlsx");
         }
+
+        function sendEmail() {
+        const wb = XLSX.utils.book_new();
+        const ws = XLSX.utils.aoa_to_sheet([["操作日期", "操作时间", "操作项", "操作时长（秒）"]]);
+        const recordsData = records.map(record => [record.date, record.time, record.action, record.duration]);
+        XLSX.utils.sheet_add_aoa(ws, recordsData, { origin: -1 });
+        XLSX.utils.book_append_sheet(wb, ws, "记录");
+
+        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'base64' });
+        const attachment = `data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,${wbout}`;
+
+        // 使用 EmailJS 服务发送邮件
+        emailjs.send('service_ca9rq2p', 'template_ul2m9a9', {
+            to_email: 'sangweijie3@jd.com',
+            subject: 'WMS6.0测试记录',
+            message: '附件内容为WMS6.0测试记录',
+            attachment: attachment
+        }).then(function(response) {
+            alert('邮件发送成功！');
+        }, function(error) {
+            alert('邮件发送失败：' + JSON.stringify(error));
+        });
+    }
+
+
     
         // 默认显示首页
         showPage('home');
