@@ -1,116 +1,106 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="zh">
 <head>
-  <meta charset="UTF-8">
-  <title>CodePen - Test Bubble</title>
-  <link rel="stylesheet" href="./style.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的个人网站</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-<!-- partial:index.partial.html -->
-<img class="logo" src="https://outernets.co/wp-content/uploads/2019/03/logo-H.png"/>
-	  <ul class="menu">
-		  <li>About</li>
-		  <li>Service</li>
-		  <li>Press</li>
-		  <li>Industry Insight</li>
-		  <li>Contact</li>
-</ul>
-	  <div id="container">
-	  <div class="fixed">
-		  
-	  <h1>Where Digital Gets Physical</h1>	
-		  <p>Smarter digital displays with AI technology<br> 
-which understand and proactively engage their viewers.</p>
-		  <div class="explore">Explore the Future</div>
-<!-- 	 <h4>GLSL Experiment #1</h4> -->
-<!-- 	 <h2>20191126 - Amoeba</h2> -->
-		  </div>
-		  </div>
-    <!-- simple vertex shader -->
-    <script id="vertexShader" type="x-shader/x-vertex">
-      void main() {
-        gl_Position = vec4(position*3.0, 1.0);
-      }
-    </script>
-    
-    <!-- simple fragment shader -->
-    <script id="fragmentShader" type="x-shader/x-fragment">
-		// Author:
-// Title:
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="logo">YourName</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home" class="active">首页</a></li>
+            <li><a href="#projects">项目</a></li>
+            <li><a href="#about">关于我</a></li>
+        </ul>
+        <div class="theme-toggle">
+            <i class="fas fa-moon"></i>
+        </div>
+    </nav>
 
-#ifdef GL_ES
-precision mediump float;
-#endif
-#define PI 3.14159265358
+    <section id="home" class="section active">
+        <div class="hero">
+            <div class="hero-content">
+                <h1 class="animate-text">你好，我是<span class="highlight">你的名字</span></h1>
+                <p class="subtitle">全栈开发工程师 / UI设计师 / 创意工作者</p>
+                <div class="cta-buttons">
+                    <a href="#projects" class="btn primary">查看作品</a>
+                    <a href="#about" class="btn secondary">了解更多</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://via.placeholder.com/500" alt="Profile">
+            </div>
+        </div>
+    </section>
 
-uniform vec2 resolution;
-uniform vec2 mouse;
-uniform float time;
+    <section id="projects" class="section">
+        <h2>我的项目</h2>
+        <div class="projects-grid">
+            <div class="project-card" onclick="location.href='projects/project1.html'">
+                <img src="https://via.placeholder.com/300" alt="Project 1">
+                <h3>项目一</h3>
+                <p>人工智能应用开发</p>
+            </div>
+            <div class="project-card" onclick="location.href='projects/project2.html'">
+                <img src="https://via.placeholder.com/300" alt="Project 2">
+                <h3>项目二</h3>
+                <p>移动应用设计</p>
+            </div>
+            <div class="project-card" onclick="location.href='projects/project3.html'">
+                <img src="https://via.placeholder.com/300" alt="Project 3">
+                <h3>项目三</h3>
+                <p>网页设计与开发</p>
+            </div>
+            <div class="project-card" onclick="location.href='projects/project4.html'">
+                <img src="https://via.placeholder.com/300" alt="Project 4">
+                <h3>项目四</h3>
+                <p>数据可视化</p>
+            </div>
+            <div class="project-card" onclick="location.href='projects/project5.html'">
+                <img src="https://via.placeholder.com/300" alt="Project 5">
+                <h3>项目五</h3>
+                <p>区块链应用</p>
+            </div>
+        </div>
+    </section>
 
-float random (vec2 st) {
-    return fract(sin(time/1000.+dot(st.xy,
-                         vec2(12.9898,78.233)))*
-        43758.5453123);
-}
-		
-vec2 rotate(vec2 v, float a) {
-	float s = sin(a);
-	float c = cos(a);
-	mat2 m = mat2(c, -s, s, c);
-	return m * v;
-}
-float rect(vec2 pos, vec2 st){
-    float w = 30.,h = 30.;
-    float xx = smoothstep(pos.x-w/2.,pos.x-w/2.+1.,st.x) - smoothstep(pos.x+w/2.,pos.x+w/2.+1.,st.x);
-    float yy = smoothstep(pos.y-h/2.,pos.y-h/2.+1.,st.y) - smoothstep(pos.y+h/2.,pos.y+h/2.+1.,st.y) ;
-    return xx*yy;
-}
-float drawBall(vec2 ballPos, vec2 st,float rr, vec3 color){
-    float angle = atan(st.y-ballPos.y,st.x-ballPos.x);
-    float r =20.+cos( 10.*angle/ 2.*PI + time)*5.+ rr * (0.1 + sin(cos(time/10.)+time) ) 
-        		+ 0.5*cos(time/0.3+(0.1+0.5*sin(time/3.))* st.y/(5.+1.*cos(angle+time/5.)) + atan(st.x,st.y))*100.;
-    float d = sqrt(dot((st-ballPos),(st-ballPos)));
-    float clr = smoothstep(r,r+0.5,d)- smoothstep(r,r+50.,d);
-    return clr*(2.+sin(time));
-}
-		
-vec3 cir(vec2 st, vec2 cirPos, float expand,float rr){
-	float ll = sqrt(dot(cirPos - st,cirPos - st));
-	
-	float r = sin( cos(time/(1.+sin(st.y*st.x/5.)/1.))*2. + st.x)*0.02+rr;
-	float kk = smoothstep(r+expand,r,ll);
-	vec3 result = kk * vec3(0.6*random(st)) +
-				  kk;
-	return result;
-}
+    <section id="about" class="section">
+        <div class="about-container">
+            <div class="about-content">
+                <h2>关于我</h2>
+                <p>我是一名充满激情的全栈开发工程师，专注于创建优秀的用户体验和高效的技术解决方案。</p>
+                <div class="skills">
+                    <h3>技能专长</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">UI设计</span>
+                    </div>
+                </div>
+                <div class="contact-info">
+                    <h3>联系方式</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-void main() {
-    vec2 st = gl_FragCoord.xy/ min(resolution.x,resolution.y);
-	// vec2 st = rotate( gl_FragCoord.xy -resolution.xy/2. ,time/100.) + resolution.xy/2.;
-    // st.x *= resolution.x/resolution.y;
-	vec2 pos1 = vec2(1.15,0.9);
-	vec2 pos2 = vec2(1.5,0.5);
-	vec2 pos3 = vec2(0.2,0.1);
-	
-	vec3 red = vec3(1.0,63./255.,94./255.);
-	vec3 blue = vec3(45./255.,50./255.,1.0);
-	vec3 purple = vec3(0.5,0.2,0.5);
-	
-	vec2 pan = mouse - 0.5;
-	
-	vec3 result =  cir(st,pos1-vec2(0.1,0.0),0.01,0.3) - cir(st,pos1 + pan*0.05,0.2,0.2) + (1.-cir(st,pos1-vec2(0.1,0.0),0.01,0.3))*cir(st,pos1 + pan*0.05,0.25,0.2);
-	
-	vec3 result2 = cir(st,pos2-vec2(0.25,0.0),0.01,0.3) - cir(st,pos2 + pan*0.05,0.5,0.2) + (1.-cir(st,pos2-vec2(0.1,0.0),0.2,0.3))*cir(st,pos2 + pan*0.05,0.25,0.2);
-	vec3 result3 =  cir(st,pos3-vec2(0.,0.0),0.01,0.2) - cir(st,pos3 + pan*0.2,0.2,0.12) + (1.-cir(st,pos3-vec2(0.05,0.0),0.01,0.2))*cir(st,pos3 + pan*0.2,0.5,0.12);
-	
-	
-    gl_FragColor = vec4(vec3(0.,1./255.,31./225.)+red*result+blue*result2+purple*result3,1.0);
-}
-    </script>
-<!-- partial -->
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js'></script><script  src="./script.js"></script>
+    <footer>
+        <p>&copy; 2024 你的名字. All rights reserved.</p>
+    </footer>
 
+    <script src="script.js"></script>
 </body>
 </html>
